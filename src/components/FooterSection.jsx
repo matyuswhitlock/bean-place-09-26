@@ -243,7 +243,7 @@ export default function FooterSection (){
                 <ScrollReveal animation="fadeUp">
                     <LocationMap/>
                 </ScrollReveal>
-                
+
 
                 {/* Link colums */}
                 <div className = "mt-16 grid grid-cols-2 gap-8 md:grid-cols-4">
@@ -275,6 +275,7 @@ export default function FooterSection (){
                     <ScrollReveal animation="fadeUp" delay={0.1}>
                         <h4 className="footer-col">Shop</h4>
                          <ul role="list" className="footer-links mt-4">
+                            
                             {navigation.shop.map((item) => (
                                 <li key={item.name}>
                                     <a href={item.href}>{item.name}</a>
