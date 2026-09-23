@@ -31,7 +31,20 @@
 //   imgPanamaGeisha, imgKona, imgGuatemalaAntigua
 
 /* --- YOUR IMPORTS GO HERE --- */
+import {motion} from "framer-motion";
 
+import ScrollReveal, { StaggerContainer, StaggerItem } from "./ui/ScrollReveal";
+import Badge from "./ui/Badge";
+import Button from "./ui/Button";
+import Separator from "./ui/Separator";
+
+import imgEthiopianHarrar from "../assets/Ethiopian-Harrar-Bag.png";
+import imgColombianSupremo from "../assets/Colombian-Supremo-Bag.png";
+import imgKenyaAA from "../assets/Kenya-AA-Bag.png";
+import imgPanamaGeisha from "../assets/Panama-Geisha.png";
+import imgKona from "../assets/Kona-Bag.png";
+import imgGuatemalaAntigua from "../assets/Guatemala-Antigua-Bag.png";
+ 
 
 // STEP 2: Define the products array (outside the component)
 // Each product is an object with these properties:
@@ -102,3 +115,153 @@
 //   </div>
 
 /* --- YOUR COMPONENT CODE GOES HERE --- */
+
+
+//data for the grid --> text card
+//image --> which photo to show
+//badge --> corner label, or null for none
+
+
+
+
+const products = [
+
+   {
+        name: "Ethiopian Harrar",
+        origin: "Ethiopia",
+        price: "$18.99",
+        roast: "Medium",
+        notes: "Blueberry, dark choclate,wine",
+        image: imgEthiopianHarrar,
+        badge: "Best Seller"
+   }, 
+   {
+        name: "Colombian Supremo",
+        origin: "Colomia",
+        price: "$16.99",
+        roast: "Medium-Dark",
+        notes: "Caramel, nutty, smooth finish",
+        image: imgColombianSupremo,
+        badge: "Classic"
+   }, 
+   {
+        name: "Kenya AA",
+        origin: "Kenya",
+        price: "$21.99",
+        roast: "Light",
+        notes: "Bright citrus, black currant, floral",
+        image: imgKenyaAA,
+        badge: "Staff Pick"
+   }, 
+   {
+        name: "Panama Geisha",
+        origin: "Panama",
+        price: "$34.99",
+        roast: "Light",
+        notes: "Jasmine, bergamot, tropical fruit",
+        image: imgPanamaGeisha,
+        badge: "Limited"
+   }, 
+   {
+        name: "Guatemala Antigua",
+        origin: "Guatemala",
+        price: "$17.99",
+        roast: "Dark",
+        notes: "Cocoa, spice, smoky sweetness",
+        image: imgGuatemalaAntigua,
+        badge: "New"
+   }, 
+   {
+        name: "Kona",
+        origin: "Hawaii",
+        price: "$29.99",
+        roast: "Medium",
+        notes: "Brown sugar, macadamia, mild acidity",
+        image: imgKona,
+        badge: "Owner's choice"
+   }
+];
+
+
+export default function ProductShowcase(){
+    return (
+        <div className = "product-showcase">
+            {/* Header -rising delays build it top-tp-bottom */}
+            <ScrollReveal animation="fadeUp">
+                <Badge variant="accent" className= "mb-4">
+                    ☕ Curated Selection
+                </Badge>
+            </ScrollReveal>
+
+            <ScrollReveal animation="fadeUp" delay={.1}>
+                <h2 className ="product-showcase-title">
+                    Shop Our
+                    <br />
+                    <span className="muted">Finest Beans</span>
+                </h2>
+            </ScrollReveal>
+
+
+            {/* Decorative divider: mx-auto centers it, max-w-48 caps the width */}
+            <ScrollReveal animation="fadeIn" delay={.15}>
+                <Separator className="mx-auto mb-4 max-w-48"/>
+            </ScrollReveal>
+
+            <ScrollReveal animation="fadeUp" delay={1.5}>
+                <p className = "product-showcase-subtitle">
+                    Hand-selected single-origin coffees, roasted to order. Each ships within 48 hours of
+                    roasting for maximum freshness.
+                </p>
+            </ScrollReveal>
+
+
+
+            {/* Product grid - cards cascade in 0.1s apart */}
+            <StaggerContainer staggerDelay={0.1} className="product-grid">
+                {products.map((product) =>(
+                     //key must be unique - react uses it to track the list items
+                    <StaggerItem key={product.name} animation="fadeUp">
+                        <motion.div
+                            className= "product-card"
+                            //lift 8px while hovered, so the card feels clickable
+                            whileHover ={{y: -8, transition: {duration: 0.25}}}
+                        >
+                            <div className="product-card-image">
+                                {/* lazy - don't doownload until it's near the screen*/}
+                                <img src={product.image} alt ={product.name} loading="lazy"/>
+                                {/* badge renders only when the product has one */}
+                                {product.badge && (
+                                    <span className="product-badge">{product.badge}</span>
+                                )}
+                            </div>
+                            <div className="product-card-info">
+                                <div className="product-card-header">
+                                    <h3>{product.name}</h3>
+                                    <span className="product-price">{product.price}</span>
+                                </div>
+                                <p className="product-origin">
+                                    {product.origin} · {product.roast}
+                                </p>
+                                <Button variant="primary" size="sm" className = "w-full mt-3">
+                                    Add to Cart
+                                </Button>
+                            </div>
+
+                        </motion.div>
+                    </StaggerItem>
+                ))}
+            </StaggerContainer>
+
+            {/* Footer Button */}
+            <ScrollReveal animation="fadeUp" delay={.2}>
+                <div className="product-showcase-cta">
+                    <Button variant="accent" size="lg">
+                        View All Coffee →
+                    </Button>
+                </div>
+            </ScrollReveal>
+
+
+        </div>
+    );
+};
