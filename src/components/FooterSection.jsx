@@ -258,7 +258,7 @@ export default function FooterSection (){
                             Premium coffee beans, roasted to order and shipped fresh. From our roastery to your cup since 2012
                         </p>
                         {/* one link per social entry, icon only */}
-                        <div className="flex-gap-x-6 justify-self-center md:justify-self-auto">
+                        <div className="flex gap-x-6 justify-self-center md:justify-self-auto">
                             {navigation.social.map((item) => (
                                 <a
                                     key={item.name}
